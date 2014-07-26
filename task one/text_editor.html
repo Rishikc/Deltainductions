@@ -1,0 +1,250 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Text editor</title>
+<style>
+.text_edit {
+	width: 650px;
+	height: 380px;
+	resize: none;
+	float:left;
+}
+
+#view_text {
+	width: 650px;
+	float:right;
+}
+</style>
+<script src="text_editor.js"> </script>
+	</head>
+<body >
+	<!-- Buttons -->
+	<table  bgcolor="burlywood"  cellpadding="20" cellspacing="10"  border=1>
+	<tr>
+	<td>
+	<table>
+	<tr>
+	<td><center><b>Text Options:<b></center></td>
+	</tr>
+	<tr>
+	<td>
+	<center><input type="button" value="B" onclick="mod_selection('[b]','[/b]')" />
+	<input type="button" value="I" onclick="mod_selection('[i]','[/i]')" />
+	<input type="button" value="U" onclick="mod_selection('[u]','[/u]')" /></center></td>
+	</tr>
+	<tr>
+	<td><center><input type="button" value="dold" onclick="dold()">
+	<input type="button" value="ditalics" onclick="ditalics()"></center></td> 
+	</tr> 
+	<tr>
+	<td><center><input type="button" value="superscript" onclick="mod_selection('[sup]','[/sup]')"> </input>
+	<input type="button" value="subscript" onclick="mod_selection('[sub]','[/sub]')"> </input></center></td>
+	</tr>	
+	</table>
+	</td>
+	
+	
+	<td>
+<table>
+<tr >
+<td><center><b>font options:<b></center></td>
+</tr>
+<tr>
+<td>Font Colour:
+<select id="col" onchange="mod_selection('[color=' + this.options[this.selectedIndex].value + ']', '[/color]')">
+<option value="">select</option>
+<option value="#000000" style="background-color: Black;color: #FFFFFF;">Black</option>
+<option value="#808080" style="background-color: Gray;">Gray</option>
+<option value="#A9A9A9" style="background-color: DarkGray;">DarkGray</option>
+<option value="#D3D3D3" style="background-color: LightGrey;">LightGray</option>
+<option value="#FFFFFF" style="background-color: White;">White</option>
+<option value="#7FFFD4" style="background-color: Aquamarine;">Aquamarine</option>
+<option value="#0000FF" style="background-color: Blue;">Blue</option>
+<option value="#000080" style="background-color: Navy;color: #FFFFFF;">Navy</option>
+<option value="#800080" style="background-color: Purple;color: #FFFFFF;">Purple</option>
+<option value="#FF1493" style="background-color: DeepPink;">DeepPink</option>
+<option value="#EE82EE" style="background-color: Violet;">Violet</option>
+<option value="#FFC0CB" style="background-color: Pink;">Pink</option>
+<option value="#006400" style="background-color: DarkGreen;color: #FFFFFF;">DarkGreen</option>
+<option value="#008000" style="background-color: Green;color: #FFFFFF;">Green</option>
+<option value="#9ACD32" style="background-color: YellowGreen;">YellowGreen</option>
+<option value="#FFFF00" style="background-color: Yellow;">Yellow</option>
+<option value="#FFA500" style="background-color: Orange;">Orange</option>
+<option value="#FF0000" style="background-color: Red;">Red</option>
+<option value="#A52A2A" style="background-color: Brown;">Brown</option>
+<option value="#DEB887" style="background-color: BurlyWood;">BurlyWood</option>
+<option value="#F5F5DC" style="background-color: Beige;">Beige</option>
+</select > 
+</td>
+</tr>
+<tr>
+<td>Font Style:
+<select  onChange="mod_selection('[font:' + this.options[this.selectedIndex].value + ']', '[/font]')">
+<option value="">select</option>
+<option value="Arial" style="font-family:Arial">Arial</option>
+<option value="Arial Black" style="font-family:Arial Black">Arial Black</option>
+<option value="Times New Roman" style="font-family:Times New Roman">Times New Roman</option>
+<option value="Verdana" style="font-family:Verdana">Verdana</option>
+<option value="comic sans ms" style="font-family:comic sana ms">comic sans ms</option>
+<option value="Gigi" style="font-family:Gigi">Gigi</option>
+<option value="Old English Text MT" style="font-family:Old English Text MT" >Old English Text MT</option>
+<option value="chiller" style="font-family:chiller" >Chiller</option>
+<option value="Curlz MT" style="font-family:Curlz MT" >Curlz MT</option>
+<option value="Freestyle Script" style="font-family:Freestyle Script">Freestyle Script</option>
+<option value="French Script MT" style="font-family:French Script MT">French Script MT</option>
+<option value="Jokerman" style="font-family:Jokerman">Jokerman</option>
+<option value="Lucida Handwriting" style="font-family:Lucida Handwriting">Lucida Handwriting</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Font Size:
+<select  onchange="mod_selection('[h ' + this.options[this.selectedIndex].value + ']', '[/h]')">
+<option >font size</option>
+<option  value="12px" style="font-size:12" >12</option>
+<option  value="14px" style="font-size:14" >14</option>
+<option  value="16px" style="font-size:16" >16</option>
+<option  value="18px" style="font-size:18" >18</option>
+<option  value="20px" style="font-size:20" >20</option>
+<option  value="22px" style="font-size:22" >22</option>
+<option  value="24px" style="font-size:24" >24</option>
+<option  value="26px" style="font-size:26" >26</option>
+<option  value="28px" style="font-size:28" >28</option>
+<option  value="30px" style="font-size:30">30</option>
+<option  value="34px" style="font-size:34">34</option>
+<option  value="38px" style="font-size:38">38</option>
+<option  value="46px" style="font-size:46">46</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Highlight Text:
+<select  onchange="mod_selection('[highlight: ' + this.options[this.selectedIndex].value + ']', '[/highlight]')">
+<option value="">select</option>
+<option value="#000000" style="background-color: Black;color: #FFFFFF;">Black</option>
+<option value="#808080" style="background-color: Gray;">Gray</option>
+<option value="#A9A9A9" style="background-color: DarkGray;">DarkGray</option>
+<option value="#D3D3D3" style="background-color: LightGrey;">LightGray</option>
+<option value="#FFFFFF" style="background-color: White;">White</option>
+<option value="#7FFFD4" style="background-color: Aquamarine;">Aquamarine</option>
+<option value="#0000FF" style="background-color: Blue;">Blue</option>
+<option value="#FF1493" style="background-color: DeepPink;">DeepPink</option>
+<option value="#EE82EE" style="background-color: Violet;">Violet</option>
+<option value="#FFC0CB" style="background-color: Pink;">Pink</option>
+<option value="#006400" style="background-color: DarkGreen;color: #FFFFFF;">DarkGreen</option>
+<option value="#008000" style="background-color: Green;color: #FFFFFF;">Green</option>
+<option value="#9ACD32" style="background-color: YellowGreen;">YellowGreen</option>
+<option value="#FFFF00" style="background-color: Yellow;">Yellow</option>
+<option value="#FFA500" style="background-color: Orange;">Orange</option>
+<option value="#FF0000" style="background-color: Red;">Red</option>
+<option value="#A52A2A" style="background-color: Brown;">Brown</option>
+<option value="#DEB887" style="background-color: BurlyWood;">BurlyWood</option>
+<option value="#F5F5DC" style="background-color: Beige;">Beige</option>
+</select>
+</td>
+</tr>
+</table>
+</td>
+<td>
+ <table >
+<tr >
+<td> <center><b>paragraph options:</b></center></td>
+</tr>
+<tr>
+<center>
+<td><input type="button" value="left" onclick="mod_selection('[p align:left]','[/p]')"> </input>
+<input type="button" value="center" onclick="mod_selection('[center]','[/center]')"> </input>
+<input type="button" value="right" onclick="mod_selection('[p align:right]','[/p]')"> </input>
+<input type="button" value="justify" onclick="mod_selection('[p align:justify]','[/p]')"> </input></td>
+</center>
+</tr>
+<tr>
+
+<td><center><input type="button" value="new paragraph" onclick="mod_selection('[p]','[/p]')"> </input></center></td>
+
+</tr>
+
+</table>
+</td>
+<td>
+<table >
+<td><center><b>Edit options:</b></center></td>
+<tr>
+<td><center><input type="button" value="cut" onclick="cut();"> </input>
+<input type="button" value="copy" onclick="copy();"> </input>
+<input type="button" value="paste" onclick="paste();"> </input></center>
+</td>
+</tr>
+
+<tr>
+<td><center><b>Bullets and Numbering</b></center></td>
+</tr>
+<tr>
+<td><center>Choose Bullets/numbers:
+<select onchange="mod_selection('[' + this.options[this.selectedIndex].value + 'l]','[/' + this.options[this.selectedIndex].value + 'l]')">
+<option>select</option>
+<option value="o">Number list</option>
+<option value="u">Bulleted list</option>
+</select>
+</center>
+</td>
+</tr>
+<tr>
+<td><center>Add Bullets/Numbers:
+<input type="button" value="Add Bullets/Numbers" onclick="mod_selection('[li]','[/li]')"> </input></td>
+</center>
+</tr>
+</table>
+
+</td>
+<td>
+<table>
+<tr>
+<td><center><b>Other options:</b></center></td>
+</tr>
+<tr>
+<td><center>
+<input type="button" value="quote" onclick="mod_selection('[quote]','[/quote]')"> </input>
+<input type="button" value="code" onclick="mod_selection('[code]','[/code]')"> </input>
+</center>
+</td>
+</tr>
+<tr>
+<td><center>smileys:
+<select  onchange="mod_selection(''+ this.options[this.selectedIndex].value +'', '')">
+<option value="">select</option>
+<option value=":)">smile :)</option>
+<option value=";)">wink ;)</option>
+<option value=":(">sad  :(</option>
+<option value=":D">Happy :D</option>
+<option value=":o">shock :o</option>
+<option value=":/">Angry :/</option>
+<option value=":|">confused :|</option>
+<option value="=D">Grin  =D</option>
+</select>
+</center>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+</table>
+<br>
+	<!-- Text area -->
+	<div class="text_edit">
+	<textarea style="background-color:beige" class="text_edit" id="my_text"></textarea>
+	<br />
+	<!-- Submit button -->
+	<input  type="button" value="Show text" onclick="view_text()" />
+</div>
+	<!-- Empty div to put the text in -->
+	<div id="view_text">
+	</div>
+
+
+</body>
+</html>
+
